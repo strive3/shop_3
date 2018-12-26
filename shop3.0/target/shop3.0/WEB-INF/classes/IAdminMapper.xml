@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.shop.mapper.IAdminMapper">
+    <select id="count" resultType="int">
+        select count(*) from t_admin
+    </select>
+
+    <select id="findByPage" resultType="admin">
+      select * from t_admin limit ${startIndex } , ${pageSize}
+    </select>
+
+    <insert id="add">
+       insert into t_admin values (null,#{aname},MD5(#{apwd}))
+   </insert>
+
+    <delete id="delete">
+        delete from t_admin where id=#{id}
+    </delete>
+
+    <update id="update" >
+        update t_admin set apwd=MD5(#{apwd}) where id=#{id}
+    </update>
+
+    <select id="findById" resultType="admin">
+        select * from t_admin where id=#{id}
+    </select>
+
+    <select id="findByName" resultType="admin">
+        select * from t_admin where aname=#{aname}
+    </select>
+</mapper>

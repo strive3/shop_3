@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/entity/Cart.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/entity/CartItem.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/entity/Category.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/entity/Paging.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/entity/Product.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/entity/Salesorder.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/filter/BackFilter.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/mapper/IAdminMapper.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/mapper/ICategoryMapper.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/mapper/IProductMapper.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/mapper/ISalesitemDao.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/mapper/IUserMapper.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/servlet/AdminServlet.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/servlet/AjaxSevlet.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/servlet/CategoryServlet.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/servlet/OrderServlet.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/servlet/ProductServlet.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/servlet/UserServlet.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/servlet/pre/PreServlet.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/test/TestCart.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/test/TestMail.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/util/CodeUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/util/DBUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/util/DruidConnectionPool.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/util/FileEncryptAndDecrypt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/util/MailUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/util/ServletUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/neuedu/shop/util/VerifyCodeUtils.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/json-lib-2.2.2-jdk15.jar" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

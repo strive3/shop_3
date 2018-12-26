@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.shop.mapper.ICategoryMapper">
+    <select id="count" resultType="int">
+        select count(*) from t_category
+    </select>
+
+    <select id="findAll" resultType="category">
+        select * from  t_category;
+    </select>
+
+    <resultMap id="Tree" type="category">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="descr" column="descr" />
+        <result property="pid" column="pid" />
+        <result property="leaf" column="leaf" />
+        <collection property="categoryList"  javaType="java.util.List" column="id" select="findToTree" />
+    </resultMap>
+    <select id="findToTree" resultMap="Tree">
+        select * from t_category where pid = #{pid}
+    </select>
+    <select id="findById" resultType="Category">
+        select * from t_category where id= #{id}
+    </select>
+
+
+    <!--找到自己和自己的所有子类别    删除的时候执行下面四条语句-->
+    <select id="findForDelete" resultMap="Tree">
+        select * from t_category where id = #{id}
+    </select>
+    <delete id="delete">
+        delete from t_category
+        <where>
+            <foreach collection="set" open="id in (" close=")" item="i" separator=",">
+                #{i}
+            </foreach>
+        </where>
+    </delete>
+
+    <select id="findCountByPid" resultType="int">
+        select count(*) from t_category where pid = #{pid}
+    </select>
+    <update id="updateLeafTo1">
+        update t_category set leaf=1 where id= #{pid}
+    </update>
+
+    <!--添加的时候执行下面3条语句-->
+    <select id="findFather" resultType="Category">
+        select * from t_category where id = #{pid}
+    </select>
+    <insert id="add" >
+        insert into t_category values (null,#{name},#{descr},#{pid},1,#{grade})
+    </insert>
+    <update id="updateLeafTo0">
+        update t_category set leaf=0 where id= #{pid}
+    </update>
+
+    <!--更新-->
+    <update id="update">
+        update t_category set name=#{name},descr=#{descr} where id= #{id}
+    </update>
+
+</mapper>

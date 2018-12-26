@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.shop.mapper.IOrderDAO">
+    <!--添加时的两条语句-->
+    <insert id="add" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into t_salesorder values(null,#{user.id},#{user.addr},now(),#{status})
+    </insert>
+    <insert id="addItem">
+        insert into t_salesitem values
+        <foreach collection="list" item="i" separator=",">
+            (null,#{i.product.id},#{i.product.normalprice},#{i.qty},#{key })
+        </foreach>
+    </insert>
+
+    <!--分页查询订单-->
+    <select id="findByPage" resultMap="findSalesorder">
+        select * from t_salesorder limit #{startIndex},#{pagesize }
+    </select>
+    <resultMap id="findSalesorder" type="salesorder"  >
+        <id property="id" column="id" />
+        <result property="odate" column="odate" />
+        <result property="status" column="status" />
+        <association property="user" javaType="user">
+            <id property="id" column="userid"></id>
+            <result property="addr" column="addr"></result>
+        </association>
+        <collection property="salesitems" javaType="java.util.List" select="findSaleitemByOrderid" column="id"/>
+    </resultMap>
+    <select id="findSaleitemByOrderid" resultType="salesitem">
+        SELECT * from t_salesitem WHERE orderid = #{id }
+    </select>
+
+    <!--按照id查找-->
+    <select id="findById" resultMap="findSalesorder">
+        select * from t_salesorder where id = #{id}
+    </select>
+    <!--查看一共有多少订单-->
+    <select id="count" resultType="int">
+        select count(*) from t_salesorder
+    </select>
+    <!--更新订单的状态-->
+    <update id="update">
+        update t_salesorder set status=#{status} where id=#{id}
+    </update>
+
+
+</mapper>

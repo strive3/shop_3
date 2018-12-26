@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.shop.mapper.IProductMapper">
+    <sql id="general">
+        select p.id pid,p.`name`,p.descr,p.normalprice,p.memberprice,p.pdate,p.categoryid,
+                c.id cid,c.`name` cname,c.descr cdescr,c.pid cpid,c.leaf,c.grade
+                from t_product p join
+                t_category c on
+                p.categoryid = c.id
+    </sql>
+    <resultMap id="findMap" type="Product">
+        <id property="id" column="pid"></id>
+        <result property="name" column="name"></result>
+        <result property="descr" column="descr"></result>
+        <result property="normalprice" column="normalprice"></result>
+        <result property="memberprice" column="memberprice"></result>
+        <result property="pDate" column="pdate"></result>
+        <association property="category" javaType="Category">
+            <id property="id" column="cid"/>
+            <result property="name" column="cname"/>
+            <result property="descr" column="cdescr"/>
+            <result property="pid" column="cpid"/>
+            <result property="leaf" column="leaf" />
+            <result property="grade" column="grade"/>
+        </association>
+    </resultMap>
+    <select id="findAll" resultMap="findMap">
+        <include refid="general"/>
+    </select>
+
+    <select id="findById" resultMap="findMap">
+        <include refid="general"/>
+        where p.id = #{id}
+    </select>
+    <select id="findByKeywords" resultMap="findMap">
+        <include refid="general"/>
+        where p.name like concat('%',#{keywords},'%') or p.descr like concat('%',#{keywords},'%')
+        limit #{startIndex},#{pagesize}
+    </select>
+    <select id="complexSearchs" resultMap="findMap">
+        <include refid="general"/>
+        <where>
+            <if test="categoryid != -1">
+                and p.categoryid = #{categoryid}
+            </if>
+            <if test="keywords != null and keywords != ''">
+                and p.name like concat('%',#{keywords},'%') or p.descr like concat('%',#{keywords},'%')
+            </if>
+            <if test="lownormalprice != 0 and highnormalprice != 0">
+                and (p.normalprice between #{lownormalprice} and #{highnormalprice} )
+            </if>
+            <if test="lowmemberprice != 0 and highmemberprice != 0">
+                and (p.memberprice between #{lowmemberprice} and #{highmemberprice} )
+            </if>
+            <if test="startdate != null and enddate != null">
+                and (p.pdate between '${startdate}' and DATE_ADD('${enddate}',INTERVAL 1 DAY))
+            </if>
+        </where>
+        limit #{startIndex},#{pagesize}
+    </select>
+
+    <select id="findLastByPagings" resultMap="findMap">
+        <include refid="general"/>
+        order by p.pdate desc limit #{startIndex}, #{pagesize}
+    </select>
+    <insert id="add">
+        insert into t_product values
+        (null,#{name },#{descr},#{normalprice },#{memberprice },now(),#{category.id })
+    </insert>
+
+    <delete id="delete">
+        delete from t_product where id=#{id }
+    </delete>
+
+    <update id="update">
+        update t_product
+        set name=#{name},descr=#{descr},normalprice=#{normalprice},memberprice=#{memberprice},pdate=now(),categoryid=#{category.id}
+        where id=#{id}
+    </update>
+
+    <select id="countAll" resultType="int">
+        select count(*) from t_product
+    </select>
+    <select id="countSimple" resultMap="count">
+        <include refid="countsql"/>
+        where p.name like concat('%',#{keywords},'%') or p.descr like concat('%',#{keywords},'%')
+    </select>
+
+    <select id="countComp" resultMap="count">
+        <include refid="countsql"/>
+        <where>
+            <if test="categoryid != -1">
+                and p.categoryid = #{categoryid}
+            </if>
+            <if test="keywords != null and keywords != ''">
+                and p.name like concat('%',#{keywords},'%') or p.descr like concat('%',#{keywords},'%')
+            </if>
+            <if test="lownormalprice != 0 and highnormalprice != 0">
+                and (p.normalprice between #{lownormalprice} and #{highnormalprice} )
+            </if>
+            <if test="lowmemberprice != 0 and highmemberprice != 0">
+                and (p.memberprice between #{lowmemberprice} and #{highmemberprice} )
+            </if>
+            <if test="startdate != null and enddate != null">
+                and (p.pdate between '${startdate}' and DATE_ADD('${enddate}',INTERVAL 1 DAY))
+            </if>
+        </where>
+    </select>
+    <sql id="countsql">
+        select count(*) count,p.id,p.`name`,p.descr,p.normalprice,p.memberprice,p.pdate,p.categoryid,
+                c.id,c.`name`,c.descr,c.pid,c.leaf,c.grade
+                from t_product p join
+                t_category c on
+                p.categoryid = c.id
+    </sql>
+
+    <resultMap id="count" type="int">
+        <result property="int" column="count"/>
+    </resultMap>
+</mapper>
